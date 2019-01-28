@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>b1300ddb-7690-4faf-abee-3bcb225a20a0</ProjectGuid>
+    <OutputType>File</OutputType>
+    <AssemblyName>USQLTraining.usqlpack</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <USQLProjectVersion>2</USQLProjectVersion>
+    <Name>USQLTraining</Name>
+    <RootNamespace>USQLTraining</RootNamespace>
+    <RuntimeVersion>default</RuntimeVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Debug\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>false</DebugSymbols>
+    <OutputPath>bin\Release\</OutputPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <Script Include="Demos\001UKCrimes.usql" />
+    <Script Include="Init\CreateDatabase.usql" />
+    <Script Include="Init\RegisterExtensions.usql" />
+    <Script Include="Init\TVF\tvf_GetCrimes.usql" />
+    <Script Include="Tasks\Task2.usql" />
+    <Script Include="Tasks\Task4.usql" />
+    <Script Include="Tasks\Task5.usql" />
+    <ScriptCode Include="Demos\001UKCrimes.usql.cs">
+      <DependentUpon>Demos\001UKCrimes.usql</DependentUpon>
+    </ScriptCode>
+    <ScriptCode Include="Init\CreateDatabase.usql.cs">
+      <DependentUpon>Init\CreateDatabase.usql</DependentUpon>
+    </ScriptCode>
+    <ScriptCode Include="Init\RegisterExtensions.usql.cs">
+      <DependentUpon>Init\RegisterExtensions.usql</DependentUpon>
+    </ScriptCode>
+    <ScriptCode Include="Init\TVF\tvf_GetCrimes.usql.cs">
+      <DependentUpon>Init\TVF\tvf_GetCrimes.usql</DependentUpon>
+    </ScriptCode>
+    <ScriptCode Include="Tasks\Task2.usql.cs">
+      <DependentUpon>Tasks\Task2.usql</DependentUpon>
+    </ScriptCode>
+    <ScriptCode Include="Tasks\Task4.usql.cs">
+      <DependentUpon>Tasks\Task4.usql</DependentUpon>
+    </ScriptCode>
+    <ScriptCode Include="Tasks\Task5.usql.cs">
+      <DependentUpon>Tasks\Task5.usql</DependentUpon>
+    </ScriptCode>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Demos" />
+    <Folder Include="Init" />
+    <Folder Include="Init\TVF" />
+    <Folder Include="Tasks" />
+  </ItemGroup>
+  <!-- check for SDK Build target in current path then in USQLSDKPath-->
+  <Import Project="UsqlSDKBuild.targets" Condition="Exists('UsqlSDKBuild.targets')" />
+  <Import Project="$(USQLSDKPath)\UsqlSDKBuild.targets" Condition="!Exists('UsqlSDKBuild.targets') And '$(USQLSDKPath)' != '' And Exists('$(USQLSDKPath)\UsqlSDKBuild.targets')" />
+</Project>

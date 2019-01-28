@@ -1,0 +1,8 @@
+﻿//D:\Repos\FP-DataSolutions\AzureDataLake\Src\USQLTraining\ADLAExt\bin\Debug\
+DECLARE @AssemblyPath string = @"D:\\Repos\\FP-DataSolutions\\AzureDataLake\\Src\\USQLTraining\\ADLAExt\\bin\\Debug\\";
+//DECLARE @AssemblyPath string = @"myAssemblies/";
+
+DECLARE @AssemblyExt string = @AssemblyPath+"ADLAExt.dll";
+USE [ADLUTraining];
+DROP ASSEMBLY IF EXISTS ADLAExt;
+CREATE ASSEMBLY ADLAExt FROM @AssemblyExt;
