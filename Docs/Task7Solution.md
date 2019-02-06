@@ -1,103 +1,60 @@
 # Zadanie 7
 
-W pierwszym kroku należy stworzyć projekt Class Library (for U-SQL Application)
+W pierwszym kroku należy zarejestrować rozszerzenia dla U-SQL. Aby to zrobić należy z poziomu portalu Azure przejść do usługi Azure Data Lake Analytics. Następnie przejść do opcji **Sample Scripts** , a następnie do **Install U-SQL Extentions**
 
-![](../Imgs/VSUSQLLibProject.png)
+![](../Imgs/ADLAInstallUSQLExt.png)
 
-Następnie w projekcie należy stworzyć klasę ze statyczną metoda
+Po zainstalowaniu zainstalowaniu rozszerzeń na Azure Data Lake Store powinien powstać katalog usqlext.
 
-```c#
- public static string GetInstalledApps()
-        {
-            var sb = new StringBuilder();
-            ManagementObjectSearcher mos = new ManagementObjectSearcher("SELECT * FROM Win32_Product");
-            foreach (ManagementObject mo in mos.Get())
-            {
-                sb.AppendLine(mo["Name"].ToString());
-            }
-            return sb.ToString();
-        }
-```
+![](../Imgs/ADLSInstallUSQLExt.png)
 
-Po skompilowaniu projektu należy zarejestrować (na danej bazie danych) stworzone assembly (w przypadku rejestracji w chmurze Azure należy skopiować na ADLS)
+W kolejnym kroku należy zarejestrować rozszerzenia. W tym celu należy uruchomić skrypt RegisterAll.usql (typowy job U-SQL ADLU=1). Rozszerzenia zostaną zarejestrowane na bazie master.
+
+Następnie należy skopiować pliki, dla których chcemy wykonać przetwarzania na ADLS i uruchomić skrypt
 
 ```mssql
-//D:\Repos\FP-DataSolutions\AzureDataLake\Src\USQLTraining\ADLAExt\bin\Debug\
-DECLARE @AssemblyPath string = @"D:\\Repos\\FP-DataSolutions\\AzureDataLake\\Src\\USQLTraining\\ADLAExt\\bin\\Debug\\";
-//DECLARE @AssemblyPath string = @"myAssemblies/";
+USE [master];
+REFERENCE ASSEMBLY ImageCommon;
+REFERENCE ASSEMBLY ImageTagging;
 
-DECLARE @AssemblyExt string = @AssemblyPath+"ADLAExt.dll";
-USE [ADLUTraining];
-DROP ASSEMBLY IF EXISTS ADLAExt;
-CREATE ASSEMBLY ADLAExt FROM @AssemblyExt;
-```
+DECLARE @basePath string = @"/Images";
+DECLARE @input string = @basePath + "/{FileName}";
+DECLARE @output string = @basePath + @"/output/objects.csv";
 
-Następnie tworzymy skrypt U-SQL i uruchamiamy go na Azure
 
-```
-USE DATABASE [ADLUTraining];
-REFERENCE ASSEMBLY ADLAExt;
-USING adlinfo = ADLAExt.Utils.VertextInfo;
-DECLARE @expiry = new TimeSpan(0,5,0);
+///Extract images
+@imgs =
+    EXTRACT FileName string,
+            ImgData byte[]
+    FROM @input
+    USING new Cognition.Vision.ImageExtractor();
 
-@ds =
-    SELECT adlinfo.GetInfo() AS BasicInfo,
-           adlinfo.GetFullInfo() AS FullInfo,  
-           adlinfo.GetVMInfo()  AS VMInfo,
-           adlinfo.GetDrivesInfo() AS Drives,
-           adlinfo.GetInstalledApps() AS Apps,
-           adlinfo.ListCurrentDir() AS Content,
-           adlinfo.ListDrivesFiles("D:\\data") AS DDrive
-    FROM(
-        VALUES
-        (
-            "Info"
-        ))
-AS T(Info);
+//// Extract the number of objects on each image and tag them 
+@objects =
+    PROCESS @imgs 
+    PRODUCE FileName,
+            NumObjects int,
+            Tags SQL.MAP<string, float?>
+    READONLY FileName
+    USING new Cognition.Vision.ImageTagger();
 
-@adluinfo =
-    SELECT FullInfo,BasicInfo
-    FROM @ds;
+//// Transform to table:
+///  FileName tag1
+///  FileName tag2
+///  FileName tag3
 
-OUTPUT @adluinfo
-TO "/Demos/DC/ADLU/adluinfo.cvs"
-EXPIRATION @expiry
-USING Outputters.Csv();
+@objects =
+    SELECT o.FileName,
+           t.Tag,
+           t.Conf
+    FROM @objects AS o
+         CROSS APPLY
+             EXPLODE(o.Tags) AS t(Tag,Conf);
 
-@drivesinfo =
-    SELECT Drives
-    FROM @ds;
+OUTPUT @objects
+TO @output
+ORDER BY FileName
+USING Outputters.Csv(outputHeader:true);
 
-OUTPUT @drivesinfo
-TO "/Demos/DC/ADLU/adlu_drivesinfo.cvs"
-EXPIRATION @expiry
-USING Outputters.Csv();
-
-@apps =
-    SELECT Apps
-    FROM @ds;
-
-OUTPUT @apps
-TO "/Demos/DC/ADLU/adlu_apps.cvs"
-EXPIRATION @expiry
-USING Outputters.Csv();
-
-@workingDir =
-    SELECT Content
-    FROM @ds;
-
-OUTPUT @workingDir
-TO "/Demos/DC/ADLU/adlu_workingDir.cvs"
-EXPIRATION @expiry
-USING Outputters.Csv();
-
-@ddrive =
-    SELECT DDrive
-    FROM @ds;
-
-OUTPUT @ddrive
-TO "/Demos/DC/ADLU/adlu_dDrive.cvs"
-EXPIRATION @expiry
-USING Outputters.Csv();
 ```
 

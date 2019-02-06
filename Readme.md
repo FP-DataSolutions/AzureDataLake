@@ -32,6 +32,7 @@
 
 ### 6. Tworzenie własnych .Net Assemblies
 #### [Zadanie](./Docs/Task6.md)
+#### [Rozwiązanie](./Docs/Task6Solution.md)
 
 ### 7. Korzystanie z Congitive API
 #### [Zadanie](./Docs/Task7.md)
