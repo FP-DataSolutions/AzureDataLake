@@ -35,9 +35,9 @@
 
 ### 7. Korzystanie z Congitive API
 #### [Zadanie](./Docs/Task7.md)
+#### [Rozwiązanie](./Docs/Task7Solution.md)
 
 ### 8. Automatyzacja przetwarzania z Azure Data Factory
-#### [Zadanie](./Docs/Task7.md)
+#### [Zadanie](./Docs/Task8.md)
+#### [Rozwiązanie](./Docs/Task8Solution.md)
 
-3f0cf40a-efb1-4e9d-ae80-8a2a4d754d35
-2EsDIVZQPEDW0VC3VVdRkVTut28Eumrdh8bB+xgLPVY=

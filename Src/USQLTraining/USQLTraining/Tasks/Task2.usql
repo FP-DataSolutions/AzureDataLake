@@ -11,5 +11,5 @@
         ) AS T (id, begin, end, value);
 
 OUTPUT @sample
-TO "sample.csv"
+TO @"d:\Repos\FP-DataSolutions\AzureDataLake\Results\sample.csv"
 USING Outputters.Csv(outputHeader : true);

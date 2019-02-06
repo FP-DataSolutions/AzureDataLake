@@ -1,0 +1,34 @@
+﻿SET @@FeaturePreviews = "DataPartitionedOutput:on";
+
+DECLARE @inputCrimes = @"UKCrimes/{Date:yyyy}-{Date:MM}\{Input}-{City}-street.csv";
+
+@crimes =
+    EXTRACT CrimeID string,
+            Month string,
+            ReportedBy string,
+            FallsWithin string,
+            Longitude string,
+            Latitude string,
+            Location string,
+            LSOACode string,
+            LSOAName string,
+            CrimeType string,
+            LastOutcomeCategory string,
+            Context string,
+            Date DateTime,
+            Input string,
+            City string
+    FROM @inputCrimes
+    USING Extractors.Csv(silent : false, skipFirstNRows : 1);
+
+
+@crimes =
+    SELECT CrimeID,
+           CrimeType,
+           City,
+           Date
+    FROM @crimes;
+
+OUTPUT @crimes
+TO @"/UKCrimes/Results/Crimes/CrimeType={CrimeType}/Crimes.csv"
+USING Outputters.Csv(outputHeader : true);

@@ -83,3 +83,4 @@ Wybierz usługę ADLS w ramach swojej subskrypcji i korzystając z wcześniej st
 ![](../Imgs/ADFCreateADLSServiceDetails.png)
 
 Następnie stwórz Linked Service do Azure Data Lake Analytics (Compute)- lista kroków analogiczna jak w przypadku ADLS.
+

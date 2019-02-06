@@ -23,7 +23,7 @@ AS T(Info);
     FROM @ds;
 
 OUTPUT @adluinfo
-TO "/Demos/DC/ADLU/adluinfo.cvs"
+TO "/Demos/ADLATraining/ADLU/adluinfo.cvs"
 EXPIRATION @expiry
 USING Outputters.Csv();
 
@@ -32,7 +32,7 @@ USING Outputters.Csv();
     FROM @ds;
 
 OUTPUT @drivesinfo
-TO "/Demos/DC/ADLU/adlu_drivesinfo.cvs"
+TO "/Demos/ADLATraining/ADLU/adlu_drivesinfo.cvs"
 EXPIRATION @expiry
 USING Outputters.Csv();
 
@@ -41,7 +41,7 @@ USING Outputters.Csv();
     FROM @ds;
 
 OUTPUT @apps
-TO "/Demos/DC/ADLU/adlu_apps.cvs"
+TO "/Demos/ADLATraining/ADLU/adlu_apps.cvs"
 EXPIRATION @expiry
 USING Outputters.Csv();
 
@@ -50,7 +50,7 @@ USING Outputters.Csv();
     FROM @ds;
 
 OUTPUT @workingDir
-TO "/Demos/DC/ADLU/adlu_workingDir.cvs"
+TO "/Demos/ADLATraining/ADLU/adlu_workingDir.cvs"
 EXPIRATION @expiry
 USING Outputters.Csv();
 
@@ -59,6 +59,6 @@ USING Outputters.Csv();
     FROM @ds;
 
 OUTPUT @ddrive
-TO "/Demos/DC/ADLU/adlu_dDrive.cvs"
+TO "/Demos/ADLATraining/ADLU/adlu_dDrive.cvs"
 EXPIRATION @expiry
 USING Outputters.Csv();

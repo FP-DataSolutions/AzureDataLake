@@ -22,15 +22,49 @@
     <OutputPath>bin\Release\</OutputPath>
   </PropertyGroup>
   <ItemGroup>
-    <Script Include="Demos\001UKCrimes.usql" />
+    <Script Include="Demos\Demo001UKCrimes.usql" />
+    <Script Include="Demos\Demo000IISLogs.usql" />
+    <Script Include="Demos\Demo003Stackoverflow.usql" />
+    <Script Include="Demos\Demo004Cognitive.usql" />
+    <Script Include="Demos\Demo004CognitiveADF.usql" />
+    <Script Include="Demos\Demo005PythonDeploy.usql" />
+    <Script Include="Demos\Demo006GetADLUInfo.usql" />
+    <Script Include="Demos\Demo007OutputFileSets.usql" />
     <Script Include="Init\CreateDatabase.usql" />
     <Script Include="Init\RegisterExtensions.usql" />
     <Script Include="Init\TVF\tvf_GetCrimes.usql" />
+    <Script Include="Samples\Array.usql" />
+    <Script Include="Samples\Map.usql" />
+    <Script Include="Samples\Processor.usql" />
+    <Script Include="Samples\Reducer.usql" />
+    <Script Include="Samples\UDO.usql" />
     <Script Include="Tasks\Task2.usql" />
     <Script Include="Tasks\Task4.usql" />
     <Script Include="Tasks\Task5.usql" />
-    <ScriptCode Include="Demos\001UKCrimes.usql.cs">
-      <DependentUpon>Demos\001UKCrimes.usql</DependentUpon>
+    <Script Include="Tasks\Task6.usql" />
+    <ScriptCode Include="Demos\Demo001UKCrimes.usql.cs">
+      <DependentUpon>Demos\Demo001UKCrimes.usql</DependentUpon>
+    </ScriptCode>
+    <ScriptCode Include="Demos\Demo000IISLogs.usql.cs">
+      <DependentUpon>Demos\Demo000IISLogs.usql</DependentUpon>
+    </ScriptCode>
+    <ScriptCode Include="Demos\Demo003Stackoverflow.usql.cs">
+      <DependentUpon>Demos\Demo003Stackoverflow.usql</DependentUpon>
+    </ScriptCode>
+    <ScriptCode Include="Demos\Demo004Cognitive.usql.cs">
+      <DependentUpon>Demos\Demo004Cognitive.usql</DependentUpon>
+    </ScriptCode>
+    <ScriptCode Include="Demos\Demo004CognitiveADF.usql.cs">
+      <DependentUpon>Demos\Demo004CognitiveADF.usql</DependentUpon>
+    </ScriptCode>
+    <ScriptCode Include="Demos\Demo005PythonDeploy.usql.cs">
+      <DependentUpon>Demos\Demo005PythonDeploy.usql</DependentUpon>
+    </ScriptCode>
+    <ScriptCode Include="Demos\Demo006GetADLUInfo.usql.cs">
+      <DependentUpon>Demos\Demo006GetADLUInfo.usql</DependentUpon>
+    </ScriptCode>
+    <ScriptCode Include="Demos\Demo007OutputFileSets.usql.cs">
+      <DependentUpon>Demos\Demo007OutputFileSets.usql</DependentUpon>
     </ScriptCode>
     <ScriptCode Include="Init\CreateDatabase.usql.cs">
       <DependentUpon>Init\CreateDatabase.usql</DependentUpon>
@@ -41,6 +75,21 @@
     <ScriptCode Include="Init\TVF\tvf_GetCrimes.usql.cs">
       <DependentUpon>Init\TVF\tvf_GetCrimes.usql</DependentUpon>
     </ScriptCode>
+    <ScriptCode Include="Samples\Array.usql.cs">
+      <DependentUpon>Samples\Array.usql</DependentUpon>
+    </ScriptCode>
+    <ScriptCode Include="Samples\Map.usql.cs">
+      <DependentUpon>Samples\Map.usql</DependentUpon>
+    </ScriptCode>
+    <ScriptCode Include="Samples\Processor.usql.cs">
+      <DependentUpon>Samples\Processor.usql</DependentUpon>
+    </ScriptCode>
+    <ScriptCode Include="Samples\Reducer.usql.cs">
+      <DependentUpon>Samples\Reducer.usql</DependentUpon>
+    </ScriptCode>
+    <ScriptCode Include="Samples\UDO.usql.cs">
+      <DependentUpon>Samples\UDO.usql</DependentUpon>
+    </ScriptCode>
     <ScriptCode Include="Tasks\Task2.usql.cs">
       <DependentUpon>Tasks\Task2.usql</DependentUpon>
     </ScriptCode>
@@ -50,11 +99,15 @@
     <ScriptCode Include="Tasks\Task5.usql.cs">
       <DependentUpon>Tasks\Task5.usql</DependentUpon>
     </ScriptCode>
+    <ScriptCode Include="Tasks\Task6.usql.cs">
+      <DependentUpon>Tasks\Task6.usql</DependentUpon>
+    </ScriptCode>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Demos" />
     <Folder Include="Init" />
     <Folder Include="Init\TVF" />
+    <Folder Include="Samples" />
     <Folder Include="Tasks" />
   </ItemGroup>
   <!-- check for SDK Build target in current path then in USQLSDKPath-->

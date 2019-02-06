@@ -26,7 +26,7 @@
     GROUP BY CrimeType;
 
 OUTPUT @crimesStats
-TO "CitiesCrimes.csv"
+TO @"d:\Repos\FP-DataSolutions\AzureDataLake\Results\CitiesCrimes.csv"
 ORDER BY CrimeType,
          TotalCrimes DESC
 USING Outputters.Csv(outputHeader : true);
