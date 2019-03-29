@@ -2,7 +2,7 @@
 REFERENCE ASSEMBLY ImageCommon;
 REFERENCE ASSEMBLY ImageTagging;
 
-//DECLARE @basePath string = @"d:\Repos\Cloud4YourData\CommunityEvents\DataCommunity201812_AzureDataLake\output\Images";
+DECLARE @basePath string = @"/Images";
 DECLARE @input string = @basePath + "/{FileName}";
 DECLARE @output string = @basePath + @"/output/objects.csv";
 
